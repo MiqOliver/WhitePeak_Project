@@ -29,6 +29,9 @@ public class PlayerBehavior : MonoBehaviour {
     [HideInInspector]
     public bool changeMovement = false;
 
+    [Space]
+    public bool menu = false;
+
     //these are for the mechanics of each character
     private delegate void mechanics(PlayerBehavior behavior);
     private mechanics onTap;
@@ -45,7 +48,12 @@ public class PlayerBehavior : MonoBehaviour {
 
     private void Awake()
     {
-        this.gameObject.name = "Player";
+        if (!menu)
+        {
+            this.character = (playerClass)PlayerPrefs.GetInt("CharacterSelected");
+            this.gameObject.name = "Player";
+        }
+
     }
 
     // Use this for initializtion
@@ -61,16 +69,32 @@ public class PlayerBehavior : MonoBehaviour {
         switch (character)
         {
             case playerClass.Girl_Name:
+
+                speed = 4;
+                tapForce = 5;
+                tapCooldown = 0.35f;
+                dragDistance = 6;
+                dragCooldown = 3;
+
                 onTap = PlayerMechanics.Jump;
                 onDrag = PlayerMechanics.Dash;
+
                 break;
             case playerClass.Big_Name:
+
+                speed = 3;
+                tapForce = 5;
+                tapCooldown = 1;
+                dragDistance = 10;
+                dragCooldown = 2.5f;
+
                 onTap = PlayerMechanics.Hit;
                 onDrag = PlayerMechanics.ThrowObject;
+
                 break;
             default:
                 break;
-        }
+        }   
     }
 	
 	// Update is called once per frame
