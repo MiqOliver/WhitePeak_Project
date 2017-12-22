@@ -7,7 +7,7 @@ public static class InputManager {
     private static bool moved = false;
     private static Vector3 initPos = Vector3.zero;
     private static Vector3 finalPos = Vector3.zero;
-    public static Vector3 dashDirection = Vector3.zero;
+    public static Vector3 dragDirection = Vector3.zero;
 
     /// <summary>
     /// Returns true if the user taped any point of the screen at least once
@@ -50,12 +50,12 @@ public static class InputManager {
         if (Input.GetMouseButtonUp(0) && moved)
         {
             finalPos = Input.mousePosition;
-            dashDirection = (finalPos - initPos).normalized;
+            dragDirection = (finalPos - initPos).normalized;
             moved = false;
             //Debug.Log("Final del Mouse: " + finalPos.x + " " + finalPos.y + " " + finalPos.z + " ");
             //Debug.Log("Vector: " + dashDirection.x  + " " + dashDirection.z + " ");
-            if (dashDirection.magnitude > 0) {
-                return dashDirection;
+            if (dragDirection.magnitude > 0) {
+                return dragDirection;
                 //Debug.Log("Magnitud: " + (vect).magnitude);
             }
         }

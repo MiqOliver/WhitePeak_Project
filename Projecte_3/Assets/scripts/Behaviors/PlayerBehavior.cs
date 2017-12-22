@@ -21,8 +21,9 @@ public class PlayerBehavior : MonoBehaviour {
     public GameObject bulletPrefab;
     [Space]
     public playerClass character;
-
-	private bool isGrounded = false;
+    
+    [HideInInspector]
+    public bool canTap = false;
 
     //these are for the mechanics of each character
     private delegate void mechanics(PlayerBehavior behavior);
@@ -33,6 +34,8 @@ public class PlayerBehavior : MonoBehaviour {
 
     [HideInInspector]
     public bool breakRock;
+    [HideInInspector]
+    public bool killEnemy;
 
     #endregion
 
@@ -41,7 +44,8 @@ public class PlayerBehavior : MonoBehaviour {
 
         #region ObstacleRelated
 
-        breakRock = true;
+        breakRock = false;
+        killEnemy = false;
 
         #endregion
 
@@ -52,6 +56,8 @@ public class PlayerBehavior : MonoBehaviour {
                 onDrag = PlayerMechanics.Dash;
                 break;
             case playerClass.Big_Name:
+                onTap = PlayerMechanics.Hit;
+                onDrag = PlayerMechanics.ThrowObject;
                 break;
             default:
                 break;
@@ -63,10 +69,10 @@ public class PlayerBehavior : MonoBehaviour {
     {
         PlayerMechanics.Move(this);
 
-        if (InputManager.Toched() && isGrounded)
+        if (InputManager.Toched() && canTap)
             {
                 onTap(this);
-                isGrounded = false;
+                canTap = false;
             }
             Vector3 drag = InputManager.Drag();
             if (drag.x != 0)
@@ -89,9 +95,12 @@ public class PlayerBehavior : MonoBehaviour {
     /// </summary>
     /// <param name="s">Temps a esperar antes de permetrer el salt</param>
     /// <returns></returns>
-    IEnumerator TapCooldown(float s) {
+    public IEnumerator TapCooldown(float s) {
         yield return new WaitForSeconds(s);
-        isGrounded = true;
+        canTap = true;
+
+        breakRock = false;
+        killEnemy = false;
     }
 
     /// <summary>
@@ -99,10 +108,13 @@ public class PlayerBehavior : MonoBehaviour {
     /// </summary>
     /// <param name="s">Temps a esperar antes de permetrer el salt</param>
     /// <returns></returns>
-    IEnumerator DragCooldown(float s)
+    public IEnumerator DragCooldown(float s)
     {
         yield return new WaitForSeconds(s);
-        isGrounded = true;
+        canTap = true;
+
+        breakRock = false;
+        killEnemy = false;
     }
 
     #endregion

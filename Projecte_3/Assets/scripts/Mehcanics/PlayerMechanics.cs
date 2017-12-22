@@ -33,8 +33,32 @@ public static class PlayerMechanics {
     {
         //Vector3 dash = direction * distance;
         //Vector3 dash = new Vector3(-0.1f, 0.5f, 0);
-        Vector3 dash = new Vector3(InputManager.dashDirection.x * player.transform.forward.x, InputManager.dashDirection.y, InputManager.dashDirection.x * player.transform.forward.z).normalized;
-        player.GetComponent<Rigidbody>().AddForce(dash * player.dragDistance, ForceMode.Impulse);
+        Vector3 drag = new Vector3(InputManager.dragDirection.x * player.transform.forward.x, InputManager.dragDirection.y, InputManager.dragDirection.x * player.transform.forward.z).normalized;
+        player.GetComponent<Rigidbody>().AddForce(drag * player.dragDistance, ForceMode.Impulse);
         //player.transform.position += dash;
+    }
+
+    /// <summary>
+    /// Funció per al hit del personatge
+    /// </summary>
+    /// <param name="player"></param>
+    public static void Hit(PlayerBehavior player)
+    {
+        player.canTap = false;
+        player.StartCoroutine(player.TapCooldown(player.tapCooldown));
+
+        player.breakRock = true;
+        player.killEnemy = true;
+    }
+
+    /// <summary>
+    /// Funció per a llançar un objecte
+    /// </summary>
+    /// <param name="player"></param>
+    public static void ThrowObject(PlayerBehavior player)
+    {
+        Vector3 drag = new Vector3(InputManager.dragDirection.x * player.transform.forward.x, InputManager.dragDirection.y, InputManager.dragDirection.x * player.transform.forward.z).normalized;
+        player.bulletPrefab.GetComponent<BulletBehavior>().direction = drag;
+        GameObject.Instantiate(player.bulletPrefab, player.transform.position, player.transform.rotation);
     }
 }
