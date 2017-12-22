@@ -80,7 +80,7 @@ public class PlayerBehavior : MonoBehaviour {
             canTap = false;
         }
         Vector3 drag = InputManager.Drag();
-        if (drag.x != 0)
+        if (drag.x != 0 && canDrag)
         {
             onDrag(this);
             canDrag = false;

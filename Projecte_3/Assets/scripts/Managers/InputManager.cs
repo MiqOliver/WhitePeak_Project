@@ -36,14 +36,10 @@ public static class InputManager {
     {
         //EDITOR
 #if UNITY_EDITOR 
-
-
-
         if (Input.GetMouseButtonDown(0))
         {
             initPos = Input.mousePosition;
             moved = true;
-            //Debug.Log("Inici del Mouse: " + initPos.x + " " + initPos.y + " " + initPos.z + " ");
         }
 
 
@@ -52,11 +48,9 @@ public static class InputManager {
             finalPos = Input.mousePosition;
             dragDirection = (finalPos - initPos).normalized;
             moved = false;
-            //Debug.Log("Final del Mouse: " + finalPos.x + " " + finalPos.y + " " + finalPos.z + " ");
-            //Debug.Log("Vector: " + dashDirection.x  + " " + dashDirection.z + " ");
+
             if (dragDirection.magnitude > 0) {
                 return dragDirection;
-                //Debug.Log("Magnitud: " + (vect).magnitude);
             }
         }
         
