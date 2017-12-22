@@ -5,40 +5,46 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
-    [HideInInspector]
-    static GameObject[] characterList;
+    public GameObject[] characterList;
+    public static GameObject player;
     [HideInInspector]
     static int index;
-    
-    
+
+    private void Awake()
+    {
+        //toogle off their renderer
+        for (int i = 0; i< characterList.Length; i++)
+            characterList[i].SetActive(false);
+
+        //Debug.Log(characterList.Length);
+    }
+
     private void Start()
     {
-        index = PlayerPrefs.GetInt("CharacterSelected");
-        characterList = new GameObject[transform.childCount];
+        index = 0;
+        //characterList = new GameObject[characterList.Length];
 
-        for (int i = 0; i < transform.childCount; i++)//every children object i have
-            characterList[i] = transform.GetChild(i).gameObject;
+        //for (int i = 0; i < transform.childCount; i++)//every children object i have
+        //    characterList[i] = transform.GetChild(i).gameObject;
 
 
-        //toogle off their renderer
-        foreach (GameObject go in characterList)
-            go.SetActive(false);
 
-        if (characterList[index])
-            characterList[index].SetActive(true);
+        //Debug.Log("ara" + characterList.Length);
+        //if (characterList[index])
+        //characterList[index].SetActive(true);
     }
 
     public void ToogleLeft()
     {
         //toggle off the current moel 
         characterList[index].SetActive(false);
-        Debug.Log(SceneManager.GetActiveScene().name);
         index--;
         if (index < 0)
             index = characterList.Length - 1;
 
         //toggle on the new model
         characterList[index].SetActive(true);
+        player = characterList[index];
     }
     public void ToogleRight()
     {
@@ -51,6 +57,7 @@ public class MainMenu : MonoBehaviour {
 
         //toggle on the new model
         characterList[index].SetActive(true);
+        player = characterList[index];
     }
 
     public void PlayButton()
@@ -67,8 +74,8 @@ public class MainMenu : MonoBehaviour {
 
     public static GameObject getObje()
     {
-        return characterList[index];
-        
+        return player;
+
     }
 
 

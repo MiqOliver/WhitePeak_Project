@@ -25,7 +25,7 @@ public class PlayerBehavior : MonoBehaviour {
     [HideInInspector]
     public bool canTap = false;
     [HideInInspector]
-    public bool canDrag = false;
+    public bool canDrag = true;
     [HideInInspector]
     public bool changeMovement = false;
 
@@ -42,6 +42,11 @@ public class PlayerBehavior : MonoBehaviour {
     public bool killEnemy;
 
     #endregion
+
+    private void Awake()
+    {
+        this.gameObject.name = "Player";
+    }
 
     // Use this for initializtion
     void Start () {
@@ -80,7 +85,7 @@ public class PlayerBehavior : MonoBehaviour {
             canTap = false;
         }
         Vector3 drag = InputManager.Drag();
-        if (drag.x != 0 && canDrag)
+        if (drag.x != 0)
         {
             onDrag(this);
             canDrag = false;

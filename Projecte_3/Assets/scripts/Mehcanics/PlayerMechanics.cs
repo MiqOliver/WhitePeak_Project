@@ -37,7 +37,7 @@ public static class PlayerMechanics {
         player.killEnemy = true;
         player.changeMovement = true;
 
-        player.canDrag = false;
+        //player.canDrag = false;
         player.StartCoroutine(player.DragCooldown(player.dragCooldown));
     }
 
@@ -64,7 +64,7 @@ public static class PlayerMechanics {
         player.bulletPrefab.GetComponent<BulletBehavior>().direction = drag;
         GameObject.Instantiate(player.bulletPrefab, player.transform.position, player.transform.rotation);
 
-        player.canDrag = false;
+        //player.canDrag = false;
         player.StartCoroutine(player.DragCooldown(player.dragCooldown));
     }
 }
