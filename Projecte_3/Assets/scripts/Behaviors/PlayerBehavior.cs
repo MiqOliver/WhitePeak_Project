@@ -70,17 +70,17 @@ public class PlayerBehavior : MonoBehaviour {
         PlayerMechanics.Move(this);
 
         if (InputManager.Toched() && canTap)
-            {
-                onTap(this);
-                canTap = false;
-            }
-            Vector3 drag = InputManager.Drag();
-            if (drag.x != 0)
-            {
+        {
+            onTap(this);
+            canTap = false;
+            this.GetComponent<Renderer>().material.SetColor("No Name", new Color(210, 71, 71));
+        }
+        Vector3 drag = InputManager.Drag();
+        if (drag.x != 0)
+        {
             onDrag(this);
-                //PlayerMechanics.Dash(this,  Vector3.zero);
-                //PlayerMechanics.Dash(this, 50, drag);
-            }
+            this.GetComponent<Renderer>().material.SetColor("No Name", new Color(128, 35, 35));
+        }
     }
 
     public void Die()
@@ -101,6 +101,9 @@ public class PlayerBehavior : MonoBehaviour {
 
         breakRock = false;
         killEnemy = false;
+
+        //visual debug
+        this.GetComponent<Renderer>().material.SetColor("No Name", new Color(154, 71, 71));
     }
 
     /// <summary>
