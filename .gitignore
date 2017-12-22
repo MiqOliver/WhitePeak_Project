@@ -79,3 +79,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.bin
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta

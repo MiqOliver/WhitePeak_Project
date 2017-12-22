@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraBehavior : MonoBehaviour {
 
 
-	public Transform target;//we want get position, rotation and scale information about the target which will be followed by the cam
+	private Transform target;//we want get position, rotation and scale information about the target which will be followed by the cam
 
 	public float smoothSpeed = .05f;//highest value = speed mes alta de la camara sobre el target
 	public Vector3 offset;//variable que te com objectiu moure la camara en els 3 eixos(des de l'engine) perque no sigi com en primera persona
@@ -15,6 +15,7 @@ public class CameraBehavior : MonoBehaviour {
      
     private void Start()
     {
+        target = GameObject.Find("Player").transform;
         desiredTarget = target.position;
         desiredTarget += target.right * (Screen.width / 6);
     }

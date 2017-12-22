@@ -31,11 +31,10 @@ public static class PlayerMechanics {
     /// <param name="player">El player al que se li ha d'aplicar el dash</param>
     public static void Dash(PlayerBehavior player)
     {
-        //Vector3 dash = direction * distance;
-        //Vector3 dash = new Vector3(-0.1f, 0.5f, 0);
         Vector3 drag = new Vector3(InputManager.dragDirection.x * player.transform.forward.x, InputManager.dragDirection.y, InputManager.dragDirection.x * player.transform.forward.z).normalized;
         player.GetComponent<Rigidbody>().AddForce(drag * player.dragDistance, ForceMode.Impulse);
-        //player.transform.position += dash;
+        
+        player.killEnemy = true;
     }
 
     /// <summary>
