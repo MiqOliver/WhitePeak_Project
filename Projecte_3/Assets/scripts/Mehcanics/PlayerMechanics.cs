@@ -34,11 +34,11 @@ public static class PlayerMechanics {
         Vector3 drag = new Vector3(InputManager.dragDirection.x * player.transform.forward.x, InputManager.dragDirection.y, InputManager.dragDirection.x * player.transform.forward.z).normalized;
         player.GetComponent<Rigidbody>().AddForce(drag * player.dragDistance, ForceMode.Impulse);
 
-        player.canDrag = false;
-        player.StartCoroutine(player.DragCooldown(player.dragCooldown));
-
         player.killEnemy = true;
         player.changeMovement = true;
+
+        player.canDrag = false;
+        player.StartCoroutine(player.DragCooldown(player.dragCooldown));
     }
 
     /// <summary>
