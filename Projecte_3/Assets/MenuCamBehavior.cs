@@ -18,12 +18,12 @@ public class MenuCamBehavior : MonoBehaviour {
 
     public void toSettins()
     {
-        anim.SetTrigger("toSettings");
+        anim.SetTrigger("ToSettings");
     }
 
     public void toMain()
     {
-        anim.SetTrigger("toMenu");
+        anim.SetTrigger("ToMenu");
     }
 
 }
