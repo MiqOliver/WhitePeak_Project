@@ -4,14 +4,21 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour{
 
+    protected Transform target;
+
     //Constructor
     public Enemy()
     {
 
     }
 
+    private void Awake()
+    {
+        target = GameObject.Find("Player").transform;
+    }
+
     //Funcions comuns a tots els fills, s'implementen AQUI
-#region Common functions
+    #region Common functions
 
     public void Die() {
         Destroy(this.gameObject);

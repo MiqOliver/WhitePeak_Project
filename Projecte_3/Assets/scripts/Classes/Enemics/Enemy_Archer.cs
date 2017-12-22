@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Enemy_Archer : Enemy
 {
+    public GameObject bulletPrefab;
+    public float attackDistance;
+    public float shootCooldown;
+
+    private bool shoot;
+    protected Vector3 bulletDirection;
+
     //Cosntructor
     public Enemy_Archer()
     {
@@ -13,16 +20,29 @@ public class Enemy_Archer : Enemy
     //Funcions heredades
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+        bulletPrefab.GetComponent<BulletBehavior>().direction = bulletDirection;
+        Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
     }
 
     protected override void Start()
     {
-        throw new System.NotImplementedException();
+        shoot = true;
     }
 
     protected override void Update()
     {
-        throw new System.NotImplementedException();
+        if (Vector3.Distance(this.transform.position, target.position) <= attackDistance && shoot)
+        {
+            bulletDirection = (target.position - this.transform.position).normalized;
+            Attack();
+            shoot = false;
+            StartCoroutine(ShootCooldown(shootCooldown));
+        }
+    }
+
+    IEnumerator ShootCooldown(float s)
+    {
+        yield return new WaitForSeconds(s);
+        shoot = true;
     }
 }
