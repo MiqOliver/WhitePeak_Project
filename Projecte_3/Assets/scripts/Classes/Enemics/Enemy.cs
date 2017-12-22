@@ -26,9 +26,9 @@ public abstract class Enemy : MonoBehaviour{
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "player" && !collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
+        if (collision.transform.tag == "Player" && collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
             Die();
-        else if (collision.transform.tag == "player")
+        else if (collision.transform.tag == "Player")
             collision.gameObject.GetComponent<PlayerBehavior>().Die();
     }
 

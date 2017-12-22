@@ -120,7 +120,8 @@ public class PlayerBehavior : MonoBehaviour {
     #endregion
 
     #region Collision Detection
-
+    
+    //COLLISIONS
     void OnCollisionEnter(Collision other)
 	{	
 		if (other.collider.tag == "Ground") {
@@ -132,6 +133,18 @@ public class PlayerBehavior : MonoBehaviour {
     private void OnCollisionExit(Collision collision)
     {
         GetComponent<Rigidbody>().useGravity = true;
+    }
+
+    //TRIGGERS
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.transform.tag == "Enemy")
+        {
+            if (killEnemy)
+                Destroy(other.gameObject);
+            else
+                Die();
+        }
     }
 
     #endregion
