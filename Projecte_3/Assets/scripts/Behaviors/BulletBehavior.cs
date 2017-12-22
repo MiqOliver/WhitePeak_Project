@@ -49,7 +49,7 @@ public class BulletBehavior : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.tag == "Enemy")
+        if(type == Type.PlayerBullet && other.transform.tag == "Enemy")
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
