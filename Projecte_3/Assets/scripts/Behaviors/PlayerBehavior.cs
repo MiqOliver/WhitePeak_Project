@@ -24,6 +24,10 @@ public class PlayerBehavior : MonoBehaviour {
     
     [HideInInspector]
     public bool canTap = false;
+    [HideInInspector]
+    public bool canDrag = false;
+    [HideInInspector]
+    public bool changeMovement = false;
 
     //these are for the mechanics of each character
     private delegate void mechanics(PlayerBehavior behavior);
@@ -67,19 +71,19 @@ public class PlayerBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate()
     {
-        PlayerMechanics.Move(this);
+        if(!changeMovement)
+            PlayerMechanics.Move(this);
 
         if (InputManager.Toched() && canTap)
         {
             onTap(this);
             canTap = false;
-            this.GetComponent<Renderer>().material.SetColor("No Name", new Color(210, 71, 71));
         }
         Vector3 drag = InputManager.Drag();
         if (drag.x != 0)
         {
             onDrag(this);
-            this.GetComponent<Renderer>().material.SetColor("No Name", new Color(128, 35, 35));
+            canDrag = false;
         }
     }
 
@@ -101,9 +105,6 @@ public class PlayerBehavior : MonoBehaviour {
 
         breakRock = false;
         killEnemy = false;
-
-        //visual debug
-        this.GetComponent<Renderer>().material.SetColor("No Name", new Color(154, 71, 71));
     }
 
     /// <summary>
@@ -114,7 +115,7 @@ public class PlayerBehavior : MonoBehaviour {
     public IEnumerator DragCooldown(float s)
     {
         yield return new WaitForSeconds(s);
-        canTap = true;
+        canDrag = true;
 
         breakRock = false;
         killEnemy = false;
@@ -130,7 +131,8 @@ public class PlayerBehavior : MonoBehaviour {
 		if (other.collider.tag == "Ground") {
             StartCoroutine(TapCooldown(tapCooldown));
             GetComponent<Rigidbody>().useGravity = false;
-		}
+            changeMovement = false;
+        }
 	}
 
     private void OnCollisionExit(Collision collision)
