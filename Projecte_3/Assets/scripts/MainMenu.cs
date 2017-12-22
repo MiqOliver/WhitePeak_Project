@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
-
-    private GameObject[] characterList;
-    private int index;
+    [HideInInspector]
+    static GameObject[] characterList;
+    [HideInInspector]
+    static int index;
+    
     
     private void Start()
     {
@@ -16,6 +18,7 @@ public class MainMenu : MonoBehaviour {
 
         for (int i = 0; i < transform.childCount; i++)//every children object i have
             characterList[i] = transform.GetChild(i).gameObject;
+
 
         //toogle off their renderer
         foreach (GameObject go in characterList)
@@ -29,7 +32,7 @@ public class MainMenu : MonoBehaviour {
     {
         //toggle off the current moel 
         characterList[index].SetActive(false);
-
+        Debug.Log(SceneManager.GetActiveScene().name);
         index--;
         if (index < 0)
             index = characterList.Length - 1;
@@ -53,7 +56,7 @@ public class MainMenu : MonoBehaviour {
     public void PlayButton()
     {
         PlayerPrefs.SetInt("CharacterSelected", index);
-        SceneManager.LoadScene("a");
+        SceneSwitcher.changeToScene("a");
         //SceneManager.GetActvieScene().buildIndex + 1
     }
 
@@ -61,5 +64,12 @@ public class MainMenu : MonoBehaviour {
     {
         Application.Quit();
     }
+
+    public static GameObject getObje()
+    {
+        return characterList[index];
+        
+    }
+
 
 }
