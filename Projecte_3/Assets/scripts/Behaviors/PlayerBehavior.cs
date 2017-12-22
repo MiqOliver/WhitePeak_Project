@@ -65,7 +65,6 @@ public class PlayerBehavior : MonoBehaviour {
 
         if (InputManager.Toched() && isGrounded)
             {
-                //Instantiate(bulletPrefab, this.transform);
                 onTap(this);
                 isGrounded = false;
             }

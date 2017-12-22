@@ -7,25 +7,30 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour {
 
     public float velocity;
+    [HideInInspector]
+    public Vector3 direction;
 
     private void Awake()
     {
-        GetComponent<Collider>().enabled = false;
+        GetComponent<Collider>().isTrigger = false;
         GetComponent<Rigidbody>().useGravity = false;
     }
 
     // Use this for initialization
     void Start () {
-        Destroy(this, 4);
-        this.GetComponent<Rigidbody>().velocity = velocity * this.transform.forward;
+        Destroy(this.gameObject, 2);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        this.GetComponent<Rigidbody>().velocity = velocity * direction;
 	}
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Destroy(this);
+        if(collision.transform.tag == "Player")
+            Destroy(collision.gameObject);
+        if(collision.transform.tag != "Enemy")
+            Destroy(this.gameObject);
     }
 }
