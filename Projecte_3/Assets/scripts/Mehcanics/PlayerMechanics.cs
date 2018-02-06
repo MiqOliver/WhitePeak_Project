@@ -36,8 +36,7 @@ public static class PlayerMechanics {
 
         player.killEnemy = true;
         player.changeMovement = true;
-
-        //player.canDrag = false;
+        
         player.StartCoroutine(player.DragCooldown(player.dragCooldown));
     }
 

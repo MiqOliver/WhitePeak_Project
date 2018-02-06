@@ -37,8 +37,8 @@ public class BulletBehavior : MonoBehaviour {
                     Destroy(this.gameObject);
                 break;
             case Type.EnemyBullet:
-                if(collision.transform.tag == "Player")
-                    Destroy(collision.gameObject);
+                if (collision.transform.tag == "Player")
+                    collision.transform.GetComponent<PlayerBehavior>().Die();
                 if(collision.transform.tag != "Enemy")
                     Destroy(this.gameObject);
                 break;

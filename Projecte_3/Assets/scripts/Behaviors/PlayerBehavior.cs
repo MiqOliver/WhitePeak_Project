@@ -119,6 +119,7 @@ public class PlayerBehavior : MonoBehaviour {
     public void Die()
     {
         Destroy(this.gameObject);
+        SceneSwitcher.changeToScene("menu");
     }
 
     #region Corroutines

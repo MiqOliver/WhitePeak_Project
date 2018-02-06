@@ -22,7 +22,11 @@ public static class InputManager {
     
     //ANDROID
 #if UNITY_ANDROID
-        return Input.touchCount > 0;
+        if(Input.touchCount > 0)
+        {
+            if(Input.GetTouch(0).position.x <= Screen.width/3)
+                return Input.touchCount > 0;
+        }
 #endif
         return false;
     }
@@ -34,12 +38,20 @@ public static class InputManager {
     /// <returns></returns>
     public static Vector3 Drag()
     {
-        //EDITOR
-#if UNITY_EDITOR 
         if (Input.GetMouseButtonDown(0))
         {
+#if UNITY_EDITOR
             initPos = Input.mousePosition;
             moved = true;
+#endif
+
+#if UNITY_ANDROID
+            if (Input.mousePosition.x > Screen.width / 3)
+            {
+                initPos = Input.mousePosition;
+                moved = true;
+            }
+#endif
         }
 
 
@@ -54,28 +66,6 @@ public static class InputManager {
             }
         }
         
-        return Vector3.zero;
-#endif
-
-        //ANDROID
-#if UNITY_ANDROID
-        if (Input.touchCount > 0)
-        {
-            Touch touch = Input.GetTouch(0);
-            //Vector3 initPos = touch.position;
-            //bool moved = false;
-
-            if(touch.phase == TouchPhase.Moved)
-            {
-                moved = true;
-            }
-            if(touch.phase == TouchPhase.Ended && moved)
-            {
-                return ((Vector3)touch.position - initPos).normalized;
-            }
-            return Vector3.zero;
-        }
-#endif
         return Vector3.zero;
     }
 }
