@@ -6,9 +6,11 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour {
 
     public enum playerClass { Girl_Name, Big_Name };
-    
+
+    [Range(0.1f, 10)]
+    public float maxForce;
     [Range(3, 7)]
-	public float speed;
+	public float maxSpeed;
     [Range(2.5f, 10)]
     public float tapForce;
     [Range(0.1f, 1.0f)]
@@ -34,8 +36,7 @@ public class PlayerBehavior : MonoBehaviour {
 
     //these are for the mechanics of each character
     private delegate void mechanics(PlayerBehavior behavior);
-    private mechanics onTap;
-    private mechanics onDrag;
+    private mechanics onTap, onDrag;
 
     #region ObstacleRelated
 
@@ -70,7 +71,7 @@ public class PlayerBehavior : MonoBehaviour {
         {
             case playerClass.Girl_Name:
 
-                speed = 4;
+                maxSpeed = 4;
                 tapForce = 5;
                 tapCooldown = 0.35f;
                 dragDistance = 6;
@@ -82,7 +83,7 @@ public class PlayerBehavior : MonoBehaviour {
                 break;
             case playerClass.Big_Name:
 
-                speed = 3;
+                maxSpeed = 3;
                 tapForce = 5;
                 tapCooldown = 1;
                 dragDistance = 10;

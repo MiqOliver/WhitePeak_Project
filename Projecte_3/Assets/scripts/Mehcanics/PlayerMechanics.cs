@@ -10,10 +10,11 @@ public static class PlayerMechanics {
     /// <param name="player">El player al que se li ha d'aplicar el moviment</param>
     public static void Move(PlayerBehavior player)
     {
-        player.GetComponent<Rigidbody>().velocity = new Vector3(
-            player.transform.forward.x * player.speed,
-            player.GetComponent<Rigidbody>().velocity.y,
-            player.transform.forward.z * player.speed);
+        GameObject.Find("Path").GetComponent<PathManager>().ReachedPoint(player.transform.position);
+        Vector3 v = GameObject.Find("Path").GetComponent<PathManager>().PathFollowing(player);
+
+        
+        player.GetComponent<Rigidbody>().velocity = new Vector3(v.x, player.GetComponent<Rigidbody>().velocity.y, v.z);
     }
 
     /// <summary>
