@@ -10,18 +10,21 @@ public class MainMenu : MonoBehaviour {
     [HideInInspector]
     static int index;
 
+    //implementar per beta skills player segons static int tap, drag;
+
     private void Awake()
     {
         //toogle off their renderer
         for (int i = 0; i< characterList.Length; i++)
             characterList[i].SetActive(false);
-
-        //Debug.Log(characterList.Length);
+            
+        
     }
 
     private void Start()
     {
         index = 0;
+       
         //characterList = new GameObject[characterList.Length];
 
         //for (int i = 0; i < transform.childCount; i++)//every children object i have
@@ -34,13 +37,22 @@ public class MainMenu : MonoBehaviour {
         //characterList[index].SetActive(true);
     }
 
+    private void Update()
+    {
+     
+    
+}
     public void ToogleLeft()
     {
         //toggle off the current moel 
         characterList[index].SetActive(false);
         index--;
-        if (index < 0)
+        if (index < 0) 
             index = characterList.Length - 1;
+            Text t = GameObject.Find("PlayerInfo").GetComponentInChildren<Text>();
+            t.text = "Hola papu";
+ 
+
 
         //toggle on the new model
         characterList[index].SetActive(true);
@@ -53,6 +65,7 @@ public class MainMenu : MonoBehaviour {
 
         index++;
         if (index == characterList.Length)
+        
             index = 0;
 
         //toggle on the new model
@@ -66,6 +79,7 @@ public class MainMenu : MonoBehaviour {
         SceneSwitcher.changeToScene("a");
         //SceneManager.GetActvieScene().buildIndex + 1
     }
+
 
     public void exit()
     {
