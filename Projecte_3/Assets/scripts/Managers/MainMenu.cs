@@ -15,24 +15,22 @@ public class MainMenu : MonoBehaviour {
     private void Awake()
     {
         //toogle off their renderer
-        for (int i = 0; i< characterList.Length; i++)
-            characterList[i].SetActive(false);
-            
-        
+
+        characterList[1].SetActive(false);  
+         
     }
 
     private void Start()
     {
         index = 0;
-       
+       // Debug.Log(characterList[index]);
+        textAboutPlayer();
         //characterList = new GameObject[characterList.Length];
 
         //for (int i = 0; i < transform.childCount; i++)//every children object i have
         //    characterList[i] = transform.GetChild(i).gameObject;
 
 
-
-        //Debug.Log("ara" + characterList.Length);
         //if (characterList[index])
         //characterList[index].SetActive(true);
     }
@@ -47,13 +45,12 @@ public class MainMenu : MonoBehaviour {
         //toggle off the current moel 
         characterList[index].SetActive(false);
         index--;
-        if (index < 0) 
+        if (index < 0)
+        {
             index = characterList.Length - 1;
-            Text t = GameObject.Find("PlayerInfo").GetComponentInChildren<Text>();
-            t.text = "Hola papu";
- 
-
-
+        }
+        textAboutPlayer();
+            
         //toggle on the new model
         characterList[index].SetActive(true);
         player = characterList[index];
@@ -65,14 +62,41 @@ public class MainMenu : MonoBehaviour {
 
         index++;
         if (index == characterList.Length)
-        
+        {
             index = 0;
+        }
 
+        textAboutPlayer();
         //toggle on the new model
         characterList[index].SetActive(true);
         player = characterList[index];
     }
 
+    public void textAboutPlayer()
+    {
+        if(index % 2 == 0)
+        {
+            Text name = GameObject.Find("PlayerName").GetComponentInChildren<Text>();
+            name.text = "GIRL";
+            Text description = GameObject.Find("Player Description").GetComponentInChildren<Text>();
+            description.text = "The girl is a warrior fast and agile";
+            Text hability1 = GameObject.Find("PlayerHab1").GetComponentInChildren<Text>();
+            hability1.text = "DASH";
+            Text hability2 = GameObject.Find("PlayerHab2").GetComponentInChildren<Text>();
+            hability2.text = "JUMP";
+        }
+        else
+        {
+            Text name = GameObject.Find("PlayerName").GetComponentInChildren<Text>();
+            name.text = "BOY";
+            Text description = GameObject.Find("Player Description").GetComponentInChildren<Text>();
+            description.text = "The boy is a warrior with strenght and resistence";
+            Text hability1 = GameObject.Find("PlayerHab1").GetComponentInChildren<Text>();
+            hability1.text = "ROLL";
+            Text hability2 = GameObject.Find("PlayerHab2").GetComponentInChildren<Text>();
+            hability2.text = "THROW OBJECT";
+        }
+    }
     public void PlayButton()
     {
         PlayerPrefs.SetInt("CharacterSelected", index);
