@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent (typeof (Rigidbody))]
 public class PlayerBehavior : MonoBehaviour {
 
+    #region Variables
+
     public enum playerClass { Girl_Name, Big_Name };
 
     [Range(0.1f, 10)]
@@ -34,6 +36,8 @@ public class PlayerBehavior : MonoBehaviour {
     [Space]
     public bool menu = false;
 
+    #endregion
+
     //these are for the mechanics of each character
     private delegate void mechanics(PlayerBehavior behavior);
     private mechanics onTap, onDrag;
@@ -59,6 +63,8 @@ public class PlayerBehavior : MonoBehaviour {
 
     // Use this for initializtion
     void Start () {
+
+        canDrag = true;
 
         #region ObstacleRelated
 
@@ -108,12 +114,13 @@ public class PlayerBehavior : MonoBehaviour {
         {
             onTap(this);
             canTap = false;
+            StartCoroutine(TapCooldown(tapCooldown));
         }
-        Vector3 drag = InputManager.Drag();
-        if (drag.x != 0)
+        if (InputManager.Drag().x > 0 && canDrag)
         {
             onDrag(this);
             canDrag = false;
+            StartCoroutine(DragCooldown(dragCooldown));
         }
     }
 
@@ -162,6 +169,7 @@ public class PlayerBehavior : MonoBehaviour {
 		if (other.collider.tag == "Ground") {
             StartCoroutine(TapCooldown(tapCooldown));
             GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().freezeRotation = false;
             changeMovement = false;
         }
 	}
@@ -169,6 +177,7 @@ public class PlayerBehavior : MonoBehaviour {
     private void OnCollisionExit(Collision collision)
     {
         GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().freezeRotation = true;
     }
 
     //TRIGGERS

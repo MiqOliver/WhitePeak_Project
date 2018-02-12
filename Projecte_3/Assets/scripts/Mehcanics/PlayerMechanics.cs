@@ -10,10 +10,14 @@ public static class PlayerMechanics {
     /// <param name="player">El player al que se li ha d'aplicar el moviment</param>
     public static void Move(PlayerBehavior player)
     {
+        //Path following
         GameObject.Find("Path").GetComponent<PathManager>().ReachedPoint(player.transform.position);
         Vector3 v = GameObject.Find("Path").GetComponent<PathManager>().PathFollowing(player);
 
+        //Rotation
+        player.transform.rotation = Quaternion.LookRotation(v, player.transform.up);
         
+        //Setting velocity
         player.GetComponent<Rigidbody>().velocity = new Vector3(v.x, player.GetComponent<Rigidbody>().velocity.y, v.z);
     }
 
@@ -23,6 +27,7 @@ public static class PlayerMechanics {
     /// <param name="player">El player al que se li ha d'aplicar el salt</param>
     public static void Jump(PlayerBehavior player)
     {
+        player.changeMovement = true;
         player.GetComponent<Rigidbody>().AddForce(Vector3.up * player.tapForce, ForceMode.Impulse);
     }
 
@@ -37,8 +42,6 @@ public static class PlayerMechanics {
 
         player.killEnemy = true;
         player.changeMovement = true;
-        
-        player.StartCoroutine(player.DragCooldown(player.dragCooldown));
     }
 
     /// <summary>
@@ -47,9 +50,6 @@ public static class PlayerMechanics {
     /// <param name="player"></param>
     public static void Hit(PlayerBehavior player)
     {
-        player.canTap = false;
-        player.StartCoroutine(player.TapCooldown(player.tapCooldown));
-
         player.breakRock = true;
         player.killEnemy = true;
     }
@@ -63,8 +63,5 @@ public static class PlayerMechanics {
         Vector3 drag = new Vector3(InputManager.dragDirection.x * player.transform.forward.x, InputManager.dragDirection.y, InputManager.dragDirection.x * player.transform.forward.z).normalized;
         player.bulletPrefab.GetComponent<BulletBehavior>().direction = drag;
         GameObject.Instantiate(player.bulletPrefab, player.transform.position, player.transform.rotation);
-
-        //player.canDrag = false;
-        player.StartCoroutine(player.DragCooldown(player.dragCooldown));
     }
 }
