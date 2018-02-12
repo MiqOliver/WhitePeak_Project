@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour {
 
     #region Variables
-
+    public static PlayerBehavior control;
     public enum playerClass { Girl_Name, Big_Name };
 
     [Range(0.1f, 10)]
@@ -57,6 +57,16 @@ public class PlayerBehavior : MonoBehaviour {
         {
             this.character = (playerClass)PlayerPrefs.GetInt("CharacterSelected");
             this.gameObject.name = "Player";
+            if (control == null)
+            {
+                DontDestroyOnLoad(gameObject);
+                control = this;
+            }
+            else if (control != this)
+            {
+                Destroy(gameObject);
+            }
+
         }
 
     }
@@ -123,10 +133,22 @@ public class PlayerBehavior : MonoBehaviour {
             StartCoroutine(DragCooldown(dragCooldown));
         }
     }
+    
+    public void Save()
+    {
+        SaveManager.SavePlayer(this);
+    }
+    public void Load()
+    {
+        float[] loadStats = SaveManager.LoadPlayer();
 
+        maxForce = loadStats[0];
+        maxSpeed = loadStats[1];
+
+    }
     public void Die()
     {
-        Destroy(this.gameObject);
+       // Destroy(this.gameObject);
         SceneSwitcher.changeToScene("menu");
     }
 
