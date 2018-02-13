@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour {
     public GameObject[] characterList;
     public static GameObject player;
+
+    public SceneFader sceneFader;
     [HideInInspector]
     static int index;
 
@@ -35,11 +37,6 @@ public class MainMenu : MonoBehaviour {
         //characterList[index].SetActive(true);
     }
 
-    private void Update()
-    {
-     
-    
-}
     public void ToogleLeft()
     {
         //toggle off the current moel 
@@ -100,7 +97,8 @@ public class MainMenu : MonoBehaviour {
     public void PlayButton()
     {
         PlayerPrefs.SetInt("CharacterSelected", index);
-        SceneSwitcher.changeToScene("a");
+        sceneFader.FadeTo("a");
+      //  SceneSwitcher.changeToScene("a");
         //SceneManager.GetActvieScene().buildIndex + 1
     }
 
