@@ -12,7 +12,7 @@ public class CameraBehavior : MonoBehaviour {
     [Range(1, 10)]
     public float distance;
     [Space]
-    public Vector3 offset;
+    public Vector2 offset;
 
     // Use this for initializtion
     private void Start()
@@ -24,10 +24,13 @@ public class CameraBehavior : MonoBehaviour {
         //cam position
         Vector3 desiredPosition = target.position + target.right * distance;
         desiredPosition.y = target.position.y + offset.y;
+        desiredPosition += target.forward * offset.x;
+
 
         transform.position = Vector3.Lerp (transform.position, desiredPosition, smoothSpeed);
 
         //cam lookAt
-		transform.LookAt(target.position + new Vector3(0, 0.5f, 0) + target.forward * 1.5f);
-	}
+        //transform.LookAt(target.position + new Vector3(0, 0.5f, 0) + target.forward * 1.5f);
+        transform.LookAt(target.position);
+    }
 }
