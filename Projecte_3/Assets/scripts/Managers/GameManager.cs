@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
 
     public SceneFader sceneFader;
 
+
     void Start()
     {
         GameIsOver = false;
@@ -35,5 +36,6 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log("Level won!");
         PlayerPrefs.SetInt("levelReahed", levelToUnlock);
+        sceneFader.FadeTo(nextLevel);
     }
 }

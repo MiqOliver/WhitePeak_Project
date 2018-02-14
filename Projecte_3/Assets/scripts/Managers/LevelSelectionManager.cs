@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class LevelSelectionManager : MonoBehaviour {
 
+    public SceneFader fader;
     public Button[] levelButtons;
 
-	// Use this for initialization
 	void Start () {
 
         int levelReached = PlayerPrefs.GetInt("levelReached", 1);
@@ -19,9 +17,11 @@ public class LevelSelectionManager : MonoBehaviour {
         }
 		
 	}
+
+    public void Select(string levelName)
+    {
+        fader.FadeTo(levelName);
+    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
 }

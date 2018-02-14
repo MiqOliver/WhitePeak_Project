@@ -9,12 +9,6 @@ public class MenuCamBehavior : MonoBehaviour {
 	void Start () {
         anim = GetComponent<Animator>();
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-        
-	}
 
     public void toSettins()
     {
@@ -24,6 +18,11 @@ public class MenuCamBehavior : MonoBehaviour {
     public void toMain()
     {
         anim.SetTrigger("ToMenu");
+    }
+
+    public void toLevelSelection()
+    {
+        anim.SetTrigger("ToLevelSelection");
     }
 
 }
