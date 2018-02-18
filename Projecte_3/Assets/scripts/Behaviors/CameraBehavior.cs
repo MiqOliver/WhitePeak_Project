@@ -7,10 +7,12 @@ public class CameraBehavior : MonoBehaviour {
 
 	private Transform target;
 
-    [Range(0, 1)]
+    [Range(0, 0.25f)]
 	public float smoothSpeed;
     [Range(1, 10)]
     public float distance;
+    [Range(0, 3)]
+    public float lookForward;
     [Space]
     public Vector2 offset;
 
@@ -30,7 +32,6 @@ public class CameraBehavior : MonoBehaviour {
         transform.position = Vector3.Lerp (transform.position, desiredPosition, smoothSpeed);
 
         //cam lookAt
-        //transform.LookAt(target.position + new Vector3(0, 0.5f, 0) + target.forward * 1.5f);
-        transform.LookAt(target.position);
+        transform.LookAt(target.position + target.transform.forward * lookForward);
     }
 }

@@ -111,7 +111,6 @@ public class PathManager : MonoBehaviour {
         return Vector3.Distance(player.transform.position, path[constrainIndex]) > constrainDistance;
     }
 
-
 #region Corroutines
     private IEnumerator NextIndex(PlayerBehavior player)
     {

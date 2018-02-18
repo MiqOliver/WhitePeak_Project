@@ -122,14 +122,13 @@ public class PlayerBehavior : MonoBehaviour {
 
         if (InputManager.Toched() && canTap)
         {
-            onTap(this);
             canTap = false;
-            StartCoroutine(TapCooldown(tapCooldown));
+            onTap(this);
         }
         if (InputManager.Drag().x > 0 && canDrag)
         {
-            onDrag(this);
             canDrag = false;
+            onDrag(this);
             StartCoroutine(DragCooldown(dragCooldown));
         }
     }
