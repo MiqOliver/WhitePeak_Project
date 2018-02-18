@@ -10,13 +10,26 @@ public static class PlayerMechanics {
     /// <param name="player">El player al que se li ha d'aplicar el moviment</param>
     public static void Move(PlayerBehavior player)
     {
+        PathManager path = GameObject.Find("Path").GetComponent<PathManager>();
         //Path following
-        GameObject.Find("Path").GetComponent<PathManager>().ReachedPoint(player.transform.position);
-        Vector3 v = GameObject.Find("Path").GetComponent<PathManager>().PathFollowing(player);
+        path.ReachedPoint(player);
+        Vector3 v = path.PathFollowing(player);
 
         //Rotation
         player.transform.rotation = Quaternion.LookRotation(v, player.transform.up);
-        
+
+        //Mechanics limitation
+        path.ReachedConstrainPointPoint(player);
+        if (path.MechanicConstrains(player))
+        {
+            player.StopAllCoroutines();
+            Debug.Log("Mechanics constrained");
+            player.canTap = false;
+            player.canDrag = false;
+            path.constrain = true;
+            path.StartCoroutine(path.ResetMechanics(player));
+        }
+
         //Setting velocity
         player.GetComponent<Rigidbody>().velocity = new Vector3(v.x, player.GetComponent<Rigidbody>().velocity.y, v.z);
     }
