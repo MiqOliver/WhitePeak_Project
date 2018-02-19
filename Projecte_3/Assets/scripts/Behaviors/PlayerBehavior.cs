@@ -87,11 +87,11 @@ public class PlayerBehavior : MonoBehaviour {
         {
             case playerClass.Girl_Name:
 
-                maxSpeed = 4;
-                tapForce = 5;
-                tapCooldown = 0.35f;
-                dragDistance = 6;
-                dragCooldown = 3;
+                //maxSpeed = 4;
+                //tapForce = 5;
+                //tapCooldown = 0.35f;
+                //dragDistance = 6;
+                //dragCooldown = 3;
 
                 onTap = PlayerMechanics.Jump;
                 onDrag = PlayerMechanics.Dash;
@@ -99,11 +99,11 @@ public class PlayerBehavior : MonoBehaviour {
                 break;
             case playerClass.Big_Name:
 
-                maxSpeed = 3;
-                tapForce = 5;
-                tapCooldown = 1;
-                dragDistance = 10;
-                dragCooldown = 2.5f;
+                //maxSpeed = 3;
+                //tapForce = 5;
+                //tapCooldown = 1;
+                //dragDistance = 10;
+                //dragCooldown = 2.5f;
 
                 onTap = PlayerMechanics.Hit;
                 onDrag = PlayerMechanics.ThrowObject;

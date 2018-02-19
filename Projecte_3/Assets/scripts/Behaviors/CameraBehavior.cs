@@ -28,7 +28,6 @@ public class CameraBehavior : MonoBehaviour {
         desiredPosition.y = target.position.y + offset.y;
         desiredPosition += target.forward * offset.x;
 
-
         transform.position = Vector3.Lerp (transform.position, desiredPosition, smoothSpeed);
 
         //cam lookAt

@@ -23,7 +23,6 @@ public static class PlayerMechanics {
         if (path.MechanicConstrains(player))
         {
             player.StopAllCoroutines();
-            Debug.Log("Mechanics constrained");
             player.canTap = false;
             player.canDrag = false;
             path.constrain = true;
@@ -31,7 +30,8 @@ public static class PlayerMechanics {
         }
 
         //Setting velocity
-        player.GetComponent<Rigidbody>().velocity = new Vector3(v.x, player.GetComponent<Rigidbody>().velocity.y, v.z);
+        float correction = path.ArriveCorrection(player);
+        player.GetComponent<Rigidbody>().velocity = new Vector3(v.x * correction, player.GetComponent<Rigidbody>().velocity.y, v.z * correction);
     }
 
     /// <summary>

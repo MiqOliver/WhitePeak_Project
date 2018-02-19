@@ -12,11 +12,6 @@ public abstract class Enemy : MonoBehaviour{
 
     }
 
-    private void Awake()
-    {
-        target = GameObject.Find("Player").transform;
-    }
-
     //Funcions comuns a tots els fills, s'implementen AQUI
     #region Common functions
 

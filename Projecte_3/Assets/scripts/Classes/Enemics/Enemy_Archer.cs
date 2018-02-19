@@ -24,14 +24,20 @@ public class Enemy_Archer : Enemy
         Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
     }
 
+    void Awake()
+    {
+        enabled = true;
+    }
+
     protected override void Start()
     {
+        target = GameObject.Find("Player").transform;
         shoot = true;
     }
 
     protected override void Update()
     {
-        if (Vector3.Distance(this.transform.position, target.position) <= attackDistance && shoot)
+        if (Vector3.Distance(transform.position, target.position) <= attackDistance && shoot)
         {
             bulletDirection = (target.position - this.transform.position).normalized;
             Attack();

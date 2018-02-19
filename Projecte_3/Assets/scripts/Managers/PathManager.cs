@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PathManager : MonoBehaviour {
+
+#region Variables
+
     [Range(0.25f, 0.75f)]
     public float sphereSize;
     [Space][Header("Mechanics constrains")]
@@ -21,6 +24,8 @@ public class PathManager : MonoBehaviour {
     public Vector3[] path;
     private int index;
 
+#endregion
+
     private void Awake()
     {
         onIndexCorroutine = false;
@@ -30,7 +35,7 @@ public class PathManager : MonoBehaviour {
     }
 
     //Function to draw the path in the scene when the GameObject is selected
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         foreach (Vector3 v in path)
@@ -46,14 +51,19 @@ public class PathManager : MonoBehaviour {
             Gizmos.DrawLine(path[i - 1], path[i]);
     }
 
+#region Functions
+
     /// <summary>
     /// Actualitza l'index actual del path
     /// </summary>
     /// <param name="player"></param>
     public void ReachedPoint(PlayerBehavior player)
     {
-        if(Vector3.Distance(player.transform.position, path[index]) <= arrivalDistance)
-            index++;
+        if(index < path.Length - 1)
+        {
+            if(Vector3.Distance(player.transform.position, path[index]) <= arrivalDistance)
+                index++;
+        }
     }
 
     /// <summary>
@@ -62,12 +72,15 @@ public class PathManager : MonoBehaviour {
     /// <param name="player"></param>
     public void ReachedConstrainPointPoint(PlayerBehavior player)
     {
-        if (Vector3.Distance(player.transform.position, path[constrainIndex]) <= constrainDistance)
+        if(constrainIndex < path.Length - 1)
         {
-            if (!onIndexCorroutine)
+            if (Vector3.Distance(player.transform.position, path[constrainIndex]) <= constrainDistance)
             {
-                onIndexCorroutine = true;
-                StartCoroutine(NextIndex(player));
+                if (!onIndexCorroutine)
+                {
+                    onIndexCorroutine = true;
+                    StartCoroutine(NextIndex(player));
+                }
             }
         }
     }
@@ -79,12 +92,15 @@ public class PathManager : MonoBehaviour {
     /// <returns></returns>
     public bool MechanicConstrains(PlayerBehavior player)
     {
-        if(Vector3.Distance(player.transform.position, path[constrainIndex]) <= constrainDistance)
+        if(index < path.Length - 1)
         {
-            if (Vector3.Angle(player.transform.forward, path[constrainIndex + 1] - path[constrainIndex]) >= constrainAngle)
+            if(Vector3.Distance(player.transform.position, path[constrainIndex]) <= constrainDistance)
             {
-                if(!constrain)
-                    return true;
+                if (Vector3.Angle(player.transform.forward, path[constrainIndex + 1] - path[constrainIndex]) >= constrainAngle)
+                {
+                    if(!constrain)
+                        return true;
+                }
             }
         }
         return false;
@@ -97,19 +113,40 @@ public class PathManager : MonoBehaviour {
     /// <returns></returns>
     public Vector3 PathFollowing(PlayerBehavior player)
     {
+        //direction
         Vector3 desired_velocity = (path[index] - player.transform.position).normalized * player.maxSpeed;
-        Vector3 steering = desired_velocity - player.GetComponent<Rigidbody>().velocity;
 
+        //steering force
+        Vector3 steering = desired_velocity - player.GetComponent<Rigidbody>().velocity;
         steering = Vector3.ClampMagnitude(steering, player.maxForce);
         steering = steering / player.GetComponent<Rigidbody>().mass;
 
         return Vector3.ClampMagnitude(player.GetComponent<Rigidbody>().velocity + steering, player.maxSpeed);
     }
 
+
+    /// <summary>
+    /// Funció que retorna un valor per a la arribada a l'ultim punt per a reduir la velocitat del player
+    /// </summary>
+    /// <param name="player"></param>
+    /// <returns></returns>
+    public float ArriveCorrection(PlayerBehavior player)
+    {
+        float speed_factor = 1.0f;
+        float dist = Vector3.Distance(player.transform.position, path[index]);
+        if (dist <= arrivalDistance)
+        {
+            speed_factor = dist / arrivalDistance;
+        }
+        return speed_factor;
+    }
+
     private bool corroutineAuxiliar(PlayerBehavior player)
     {
         return Vector3.Distance(player.transform.position, path[constrainIndex]) > constrainDistance;
     }
+
+#endregion
 
 #region Corroutines
     private IEnumerator NextIndex(PlayerBehavior player)
@@ -121,9 +158,7 @@ public class PathManager : MonoBehaviour {
 
     public IEnumerator ResetMechanics(PlayerBehavior player)
     {
-        Debug.Log("Mechanics resetting");
         yield return new WaitUntil(() => corroutineAuxiliar(player));
-        Debug.Log("Mechanics resetted");
         player.canTap = true;
         player.canDrag = true;
 
