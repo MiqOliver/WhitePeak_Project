@@ -163,6 +163,7 @@ public class PathManager : MonoBehaviour {
         player.canDrag = true;
 
         player.breakRock = false;
+        player.breakLiana = false;
         player.killEnemy = false;
 
         constrain = false;
