@@ -16,7 +16,10 @@ public class Enemy_Lance : Enemy
     //Funcions heredades
     public override void Attack()
     {
-        if(_player = GetComponent<PlayerBehavior>(target))
+        if (target.onTap == PlayerMechanics.Hit && !target.canTap)
+        {
+            Die();
+        }//si el tap del target correspon al Roll i no el pot fer(per tant vol dir que lesta fent)
     }
 
     protected override void Start()
@@ -26,15 +29,19 @@ public class Enemy_Lance : Enemy
 
     private void viewDistance()
     {
-        if (Vector3.Distance(this.transform.position, target.position) <= view_player_distance && can_attack)
+        if (Vector3.Distance(this.transform.position, target.transform.position) <= view_player_distance && can_attack)
         {
             Attack();
             can_attack = false;//nomes ataca un cop ya que quan sobrepasa lenemic no li torna a atacar
         }
     }
 
-    private bool isHit(ref PlayerBehavior player)
+    private bool isHit()
     {
+        if (OnCollisionEnter())
+        {
+
+        }
         return false;
     }
     protected override void Update()
