@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_Naginata : Enemy
+public class Enemy_Sword : Enemy
 {
     //Cosntructor
-    public Enemy_Naginata()
+    public Enemy_Sword()
     {
 
     }

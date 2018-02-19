@@ -16,6 +16,12 @@ public abstract class Zone : MonoBehaviour {
         GetComponent<BoxCollider>().isTrigger = true;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireCube(GetComponent<BoxCollider>().center + transform.position, GetComponent<BoxCollider>().size);
+    }
+
     #endregion
 
     //Funcions que hereden els fills, han de ser abstractes

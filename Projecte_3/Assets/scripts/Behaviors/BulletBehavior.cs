@@ -25,8 +25,10 @@ public class BulletBehavior : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-	}
+	void Update ()
+    {
+        transform.rotation = Quaternion.LookRotation(direction);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
