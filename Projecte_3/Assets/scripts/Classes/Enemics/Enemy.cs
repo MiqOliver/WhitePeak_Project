@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour{
 
-    protected Transform target;
+    protected PlayerBehavior target;
 
     //Constructor
     public Enemy()

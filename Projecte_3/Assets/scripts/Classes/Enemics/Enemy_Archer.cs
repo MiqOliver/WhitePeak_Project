@@ -31,15 +31,15 @@ public class Enemy_Archer : Enemy
 
     protected override void Start()
     {
-        target = GameObject.Find("Player").transform;
+        target = GameObject.Find("Player").transform.GetComponent<PlayerBehavior>();
         shoot = true;
     }
 
     protected override void Update()
     {
-        if (Vector3.Distance(transform.position, target.position) <= attackDistance && shoot)
+        if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance && shoot)
         {
-            bulletDirection = (target.position - this.transform.position).normalized;
+            bulletDirection = (target.transform.position - this.transform.position).normalized;
             Attack();
             shoot = false;
             StartCoroutine(ShootCooldown(shootCooldown));
