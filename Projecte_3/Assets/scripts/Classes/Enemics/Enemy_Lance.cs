@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Enemy_Lance : Enemy
 {
-    public PlayerBehavior _player;
     public float view_player_distance;
-    private bool can_attack;
+    private bool can_attack = true;
     //Cosntructor
     public Enemy_Lance()
     {
@@ -16,34 +15,46 @@ public class Enemy_Lance : Enemy
     //Funcions heredades
     public override void Attack()
     {
-        if (target.onTap == PlayerMechanics.Hit && !target.canTap)
-        {
-            Die();
-        }//si el tap del target correspon al Roll i no el pot fer(per tant vol dir que lesta fent)
+        throw new System.NotImplementedException();
     }
 
     protected override void Start()
     {
-        throw new System.NotImplementedException();
+        target = GameObject.Find("Player").transform.GetComponent<PlayerBehavior>();
     }
 
     private void viewDistance()
     {
-        if (Vector3.Distance(this.transform.position, target.transform.position) <= view_player_distance && can_attack)
+        if ((Vector3.Distance(this.transform.position, target.transform.position) <= view_player_distance) && can_attack)
         {
             Attack();
             can_attack = false;//nomes ataca un cop ya que quan sobrepasa lenemic no li torna a atacar
+            Debug.Log("AVISTAT I ATACO");
         }
     }
 
-    private bool isHit()
+    protected override void OnCollisionEnter(Collision collision)
     {
-        if (OnCollisionEnter())
+        if(collision.transform.tag == "Player")//si la colisio es amb el player
         {
-
+            if ((target.onTap == PlayerMechanics.Hit && !target.canTap) || (target.onDrag == PlayerMechanics.Dash && !target.canDrag))
+                //si el player actual es lhome, i no pot fer el Roll
+                //amb el tap, vol dir que lesta utilitzant en aquell moment, per tant
+                //morira
+            {
+                Debug.Log("ENEMIC MOR");
+                Die();           
+            }
+            else//sino morira el player
+            {
+                collision.gameObject.GetComponent<PlayerBehavior>().Die();
+                Debug.Log("NO HA FET ROLL, MOR EL PLAYER");
+            }
         }
-        return false;
+
+       // if(collision.transform.tag == "Proyectil")//encara re disenyat per aixo
     }
+
     protected override void Update()
     {
         viewDistance();
