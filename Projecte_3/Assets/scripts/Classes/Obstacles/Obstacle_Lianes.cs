@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle_Rock : Obstacle {
+public class Obstacle_Lianes : Obstacle
+{
 
     protected override void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Player")
         {
-            if (collision.collider.GetComponentInParent<PlayerBehavior>().breakRock)
+            if (collision.collider.GetComponentInParent<PlayerBehavior>().breakLiana)
             {
                 this.Die();
                 PlayerMechanics.Move(collision.collider.GetComponentInParent<PlayerBehavior>());

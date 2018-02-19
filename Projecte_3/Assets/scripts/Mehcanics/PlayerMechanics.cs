@@ -54,6 +54,7 @@ public static class PlayerMechanics {
         player.GetComponent<Rigidbody>().AddForce(drag * player.dragDistance, ForceMode.Impulse);
 
         player.killEnemy = true;
+        player.breakLiana = true;
         player.changeMovement = true;
     }
 
@@ -63,6 +64,7 @@ public static class PlayerMechanics {
     /// <param name="player"></param>
     public static void Hit(PlayerBehavior player)
     {
+        player.breakLiana = true;
         player.breakRock = true;
         player.killEnemy = true;
     }

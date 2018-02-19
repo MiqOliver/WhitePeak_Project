@@ -39,13 +39,15 @@ public class PlayerBehavior : MonoBehaviour {
     #endregion
 
     //these are for the mechanics of each character
-    private delegate void mechanics(PlayerBehavior behavior);
-    private mechanics onTap, onDrag;
+    public delegate void mechanics(PlayerBehavior behavior);
+    public mechanics onTap, onDrag;
 
     #region ObstacleRelated
 
     [HideInInspector]
     public bool breakRock;
+    [HideInInspector]
+    public bool breakLiana;
     [HideInInspector]
     public bool killEnemy;
 
@@ -87,23 +89,11 @@ public class PlayerBehavior : MonoBehaviour {
         {
             case playerClass.Girl_Name:
 
-                //maxSpeed = 4;
-                //tapForce = 5;
-                //tapCooldown = 0.35f;
-                //dragDistance = 6;
-                //dragCooldown = 3;
-
                 onTap = PlayerMechanics.Jump;
                 onDrag = PlayerMechanics.Dash;
 
                 break;
             case playerClass.Big_Name:
-
-                //maxSpeed = 3;
-                //tapForce = 5;
-                //tapCooldown = 1;
-                //dragDistance = 10;
-                //dragCooldown = 2.5f;
 
                 onTap = PlayerMechanics.Hit;
                 onDrag = PlayerMechanics.ThrowObject;
@@ -137,14 +127,15 @@ public class PlayerBehavior : MonoBehaviour {
     {
         SaveManager.SavePlayer(this);
     }
+
     public void Load()
     {
         float[] loadStats = SaveManager.LoadPlayer();
 
         maxForce = loadStats[0];
         maxSpeed = loadStats[1];
-
     }
+
     public void Die()
     {
        // Destroy(this.gameObject);
@@ -163,6 +154,7 @@ public class PlayerBehavior : MonoBehaviour {
         canTap = true;
 
         breakRock = false;
+        breakLiana = false;
         killEnemy = false;
     }
 
@@ -177,6 +169,7 @@ public class PlayerBehavior : MonoBehaviour {
         canDrag = true;
 
         breakRock = false;
+        breakLiana = false;
         killEnemy = false;
     }
 

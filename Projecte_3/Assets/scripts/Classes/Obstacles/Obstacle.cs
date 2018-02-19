@@ -16,6 +16,7 @@ public abstract class Obstacle : MonoBehaviour {
 
     public void Die()
     {
+        //Die provisional
         this.GetComponent<Collider>().isTrigger = true;
         //Destroy(this.gameObject);
     }
@@ -24,8 +25,8 @@ public abstract class Obstacle : MonoBehaviour {
 
     //Funcions que hereden els fills, han de ser abstractes
     #region Herencia
-        
 
+    protected abstract void OnCollisionEnter(Collision collision);
 
     #endregion
 }

@@ -16,6 +16,11 @@ public class Enemy_Sword : Enemy
         throw new System.NotImplementedException();
     }
 
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        throw new System.NotImplementedException();
+    }
+
     protected override void Start()
     {
         throw new System.NotImplementedException();

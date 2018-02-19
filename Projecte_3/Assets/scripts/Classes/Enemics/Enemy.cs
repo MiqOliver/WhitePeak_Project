@@ -19,14 +19,6 @@ public abstract class Enemy : MonoBehaviour{
         Destroy(this.gameObject);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "Player" && collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
-            Die();
-        else if (collision.transform.tag == "Player")
-            collision.gameObject.GetComponent<PlayerBehavior>().Die();
-    }
-
     #endregion
 
     //Funcions que hereden els fills, han de ser abstractes
@@ -35,6 +27,7 @@ public abstract class Enemy : MonoBehaviour{
     public abstract void Attack();
     protected abstract void Start();
     protected abstract void Update();
+    protected abstract void OnCollisionEnter(Collision collision);
 
     #endregion
 

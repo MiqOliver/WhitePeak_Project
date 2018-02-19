@@ -51,4 +51,12 @@ public class Enemy_Archer : Enemy
         yield return new WaitForSeconds(s);
         shoot = true;
     }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Player" && collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
+            Die();
+        else if (collision.transform.tag == "Player")
+            collision.gameObject.GetComponent<PlayerBehavior>().Die();
+    }
 }
