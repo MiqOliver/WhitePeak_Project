@@ -35,7 +35,7 @@ public class PathManager : MonoBehaviour {
     }
 
     //Function to draw the path in the scene when the GameObject is selected
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         foreach (Vector3 v in path)
