@@ -138,6 +138,10 @@ public class PathManager : MonoBehaviour {
         {
             speed_factor = dist / arrivalDistance;
         }
+
+        if (speed_factor <= 0.05)
+            SceneSwitcher.changeToScene("Menu");
+
         return speed_factor;
     }
 
@@ -149,6 +153,7 @@ public class PathManager : MonoBehaviour {
 #endregion
 
 #region Corroutines
+
     private IEnumerator NextIndex(PlayerBehavior player)
     {
         yield return new WaitUntil(() => corroutineAuxiliar(player));
@@ -168,5 +173,6 @@ public class PathManager : MonoBehaviour {
 
         constrain = false;
     }
+
 #endregion
 }

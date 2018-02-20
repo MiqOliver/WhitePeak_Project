@@ -11,7 +11,7 @@ public class CameraBehavior : MonoBehaviour {
 	public float smoothSpeed;
     [Range(1, 10)]
     public float distance;
-    [Range(0, 3)]
+    [Range(0, 5)]
     public float lookForward;
     [Space]
     public Vector2 offset;
