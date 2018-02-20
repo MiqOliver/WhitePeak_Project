@@ -97,7 +97,7 @@ public class MainMenu : MonoBehaviour {
     public void PlayButton()
     {
         PlayerPrefs.SetInt("CharacterSelected", index);
-        sceneFader.FadeTo("a");
+        sceneFader.FadeTo("Level_1");
       //  SceneSwitcher.changeToScene("a");
         //SceneManager.GetActvieScene().buildIndex + 1
     }
