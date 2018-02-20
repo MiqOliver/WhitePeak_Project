@@ -70,7 +70,7 @@ public class PlayerBehavior : MonoBehaviour {
             }
 
         }
-
+        
     }
 
     // Use this for initializtion
