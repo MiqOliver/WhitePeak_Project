@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Obstacle_Lianes : Obstacle
 {
-
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.tag == "Player")
         {
-            if (collision.collider.GetComponentInParent<PlayerBehavior>().breakLiana)
+            if (collision.transform.GetComponent<PlayerBehavior>().breakLiana)
             {
                 this.Die();
-                PlayerMechanics.Move(collision.collider.GetComponentInParent<PlayerBehavior>());
+                PlayerMechanics.Move(collision.transform.GetComponent<PlayerBehavior>());
             }
             else
-                collision.collider.GetComponentInParent<PlayerBehavior>().Die();
+                collision.transform.GetComponent<PlayerBehavior>().Die();
         }
     }
 }

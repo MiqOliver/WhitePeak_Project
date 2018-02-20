@@ -14,6 +14,11 @@ public abstract class Obstacle : MonoBehaviour {
     //Funcions comuns a tots els fills, s'implementen AQUI
     #region Common functions
 
+    private void Awake()
+    {
+        GetComponent<Collider>().isTrigger = true; 
+    }
+
     public void Die()
     {
         //Die provisional
@@ -26,7 +31,7 @@ public abstract class Obstacle : MonoBehaviour {
     //Funcions que hereden els fills, han de ser abstractes
     #region Herencia
 
-    protected abstract void OnCollisionEnter(Collision collision);
+    protected abstract void OnTriggerEnter(Collider collision);
 
     #endregion
 }

@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class Obstacle_Rock : Obstacle {
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.tag == "Player")
         {
-            if (collision.collider.GetComponentInParent<PlayerBehavior>().breakRock)
+            if (collision.transform.GetComponent<PlayerBehavior>().breakRock)
             {
                 this.Die();
-                PlayerMechanics.Move(collision.collider.GetComponentInParent<PlayerBehavior>());
+                PlayerMechanics.Move(collision.transform.GetComponent<PlayerBehavior>());
             }
             else
-                collision.collider.GetComponentInParent<PlayerBehavior>().Die();
+                collision.transform.GetComponent<PlayerBehavior>().Die();
         }
     }
 }
