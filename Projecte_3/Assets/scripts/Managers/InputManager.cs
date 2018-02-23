@@ -80,6 +80,8 @@ public static class InputManager {
         else if (Input.GetKeyDown(KeyCode.Alpha2))
             fader.FadeTo("Level_1.2");
         else if (Input.GetKeyDown(KeyCode.Alpha3))
+            fader.FadeTo("Level_1.3");
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
             fader.FadeTo("BridgeCinematic");
     }
 }

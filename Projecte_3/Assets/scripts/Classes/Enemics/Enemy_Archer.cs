@@ -18,9 +18,9 @@ public class Enemy_Archer : Enemy
     //Funcions heredades
     public override void Attack()
     {
-        bulletDirection = (target.transform.position - transform.position).normalized;
+        bulletDirection = ((target.transform.position - new Vector3(0, 0.6f, 0)) - transform.position).normalized;
         bulletPrefab.GetComponent<BulletBehavior>().direction = bulletDirection;
-        Instantiate(bulletPrefab, transform.position, transform.rotation);
+        Instantiate(bulletPrefab, transform.position + transform.up * 0.6f + transform.forward  * 0.25f - transform.right * 0.1f, transform.rotation);
     }
 
     protected override void Start()

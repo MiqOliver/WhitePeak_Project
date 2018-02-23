@@ -23,7 +23,7 @@ public abstract class Obstacle : MonoBehaviour {
     {
         //Die provisional
         this.GetComponent<Collider>().isTrigger = true;
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     #endregion
