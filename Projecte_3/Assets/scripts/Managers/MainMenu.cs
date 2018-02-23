@@ -76,7 +76,7 @@ public class MainMenu : MonoBehaviour {
             Text name = GameObject.Find("PlayerName").GetComponentInChildren<Text>();
             name.text = "GIRL";
             Text description = GameObject.Find("Player Description").GetComponentInChildren<Text>();
-            description.text = "The girl is a warrior fast and agile";
+            description.text = "1st character";
             Text hability1 = GameObject.Find("PlayerHab1").GetComponentInChildren<Text>();
             hability1.text = "DASH";
             Text hability2 = GameObject.Find("PlayerHab2").GetComponentInChildren<Text>();
@@ -87,7 +87,7 @@ public class MainMenu : MonoBehaviour {
             Text name = GameObject.Find("PlayerName").GetComponentInChildren<Text>();
             name.text = "BOY";
             Text description = GameObject.Find("Player Description").GetComponentInChildren<Text>();
-            description.text = "The boy is a warrior with strenght and resistence";
+            description.text = "2nd character";
             Text hability1 = GameObject.Find("PlayerHab1").GetComponentInChildren<Text>();
             hability1.text = "ROLL";
             Text hability2 = GameObject.Find("PlayerHab2").GetComponentInChildren<Text>();
