@@ -5,8 +5,6 @@ using UnityEngine;
 public class Enemy_Sword : Enemy
 {
     private bool hasShield;
-    private bool canAttack;
-    public float view_distance_player;
     //Cosntructor
     public Enemy_Sword()
     {
@@ -15,7 +13,7 @@ public class Enemy_Sword : Enemy
 
     public void viewDistancePlayer()
     {
-        if(Vector3.Distance(target.transform.position, this.transform.position) <= view_distance_player && canAttack)
+        if(Vector3.Distance(target.transform.position, this.transform.position) <= range && canAttack)
         {
             Attack();
             canAttack = false;
@@ -33,7 +31,7 @@ public class Enemy_Sword : Enemy
 
     }
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.tag == "Player")
         {
@@ -45,12 +43,26 @@ public class Enemy_Sword : Enemy
                 collision.gameObject.GetComponent<PlayerBehavior>().Die();
 
         }
-        if (collision.transform.tag == "Projectil")
+        else if (collision.transform.tag == "Projectil")
         {
             if (hasShield)
             {
                 hasShield = false;
             }
+        }
+        else if (collision.transform.tag == "Ground")
+        {
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.transform.tag == "Ground")
+        {
+            GetComponent<Rigidbody>().useGravity = true;
+
         }
     }
 
@@ -65,5 +77,10 @@ public class Enemy_Sword : Enemy
     protected override void Update()
     {
         viewDistancePlayer(); 
+    }
+
+    protected override void Awake()
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Enemy_Lance : Enemy
 {
-    public float view_player_distance;
-    private bool can_attack = true;
     //Cosntructor
     public Enemy_Lance()
     {
@@ -23,17 +21,17 @@ public class Enemy_Lance : Enemy
         target = GameObject.Find("Player").transform.GetComponent<PlayerBehavior>();
     }
 
-    private void viewDistance()
-    {
-        if ((Vector3.Distance(this.transform.position, target.transform.position) <= view_player_distance) && can_attack)
-        {
-            Attack();
-            can_attack = false;//nomes ataca un cop ya que quan sobrepasa lenemic no li torna a atacar
-            Debug.Log("AVISTAT I ATACO");
-        }
-    }
+    //private void viewDistance()
+    //{
+    //    if ((Vector3.Distance(this.transform.position, target.transform.position) <= range) && canAttack)
+    //    {
+    //        Attack();
+    //        canAttack = false;//nomes ataca un cop ya que quan sobrepasa lenemic no li torna a atacar
+    //        Debug.Log("AVISTAT I ATACO");
+    //    }
+    //}
 
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if(collision.transform.tag == "Player")//si la colisio es amb el player
         {
@@ -52,11 +50,41 @@ public class Enemy_Lance : Enemy
             }
         }
 
-       // if(collision.transform.tag == "Proyectil")//encara re disenyat per aixo
+        // if(collision.transform.tag == "Proyectil")//encara re disenyat per aixo
+
+        else if (collision.transform.tag == "Ground")
+        {
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.transform.tag == "Ground")
+        {
+            GetComponent<Rigidbody>().useGravity = true;
+
+        }
     }
 
     protected override void Update()
     {
-        viewDistance();
+        if (Vector3.Distance(transform.position, target.transform.position) <= range)
+        {
+            if (canAttack)
+            {
+                Attack();
+                canAttack = false;
+                StartCoroutine(AttackCooldown());
+            }
+            else
+                Run();
+        }
+    }
+
+    protected override void Awake()
+    {
+        throw new System.NotImplementedException();
     }
 }

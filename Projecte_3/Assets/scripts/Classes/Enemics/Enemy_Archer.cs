@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class Enemy_Archer : Enemy
 {
-    public GameObject bulletPrefab;
-    public float attackDistance;
-    public float shootCooldown;
-
-    private bool shoot;
+    [Space][SerializeField]
+    private GameObject bulletPrefab;
+    
     protected Vector3 bulletDirection;
 
     //Cosntructor
@@ -20,43 +18,57 @@ public class Enemy_Archer : Enemy
     //Funcions heredades
     public override void Attack()
     {
+        bulletDirection = (target.transform.position - transform.position).normalized;
         bulletPrefab.GetComponent<BulletBehavior>().direction = bulletDirection;
-        Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
-    }
-
-    void Awake()
-    {
-        enabled = true;
+        Instantiate(bulletPrefab, transform.position, transform.rotation);
     }
 
     protected override void Start()
     {
         target = GameObject.Find("Player").transform.GetComponent<PlayerBehavior>();
-        shoot = true;
     }
 
     protected override void Update()
     {
-        if (Vector3.Distance(transform.position, target.transform.position) <= attackDistance && shoot)
+        if (Vector3.Distance(transform.position, target.transform.position) <= range)
         {
-            bulletDirection = (target.transform.position - this.transform.position).normalized;
-            Attack();
-            shoot = false;
-            StartCoroutine(ShootCooldown(shootCooldown));
+            if (canAttack)
+            {
+                Attack();
+                StartCoroutine(AttackCooldown());
+                StartCoroutine(RunCooldown());
+            }
+            else if(run)
+                Run();
         }
     }
 
-    IEnumerator ShootCooldown(float s)
-    {
-        yield return new WaitForSeconds(s);
-        shoot = true;
-    }
-
-    protected override void OnCollisionEnter(Collision collision)
+    protected override void OnTriggerEnter(Collider collision)
     {
         if (collision.transform.tag == "Player" && collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
             Die();
         else if (collision.transform.tag == "Player")
             collision.gameObject.GetComponent<PlayerBehavior>().Die();
+        else if (collision.transform.tag == "Ground")
+        {
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider collision)
+    {
+        if (collision.transform.tag == "Ground")
+        {
+            GetComponent<Rigidbody>().useGravity = true;
+
+        }
+    }
+
+
+
+    protected override void Awake()
+    {
+        enabled = true;
     }
 }
