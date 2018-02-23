@@ -35,7 +35,11 @@ public class PlayerBehavior : MonoBehaviour {
 
     [Space]
     public bool menu = false;
-    Animator anim;
+
+    [HideInInspector]
+    public Animator anim;
+    [HideInInspector]
+    public int jumpHash = Animator.StringToHash("Jump");
     #endregion
 
     //these are for the mechanics of each character
@@ -79,6 +83,7 @@ public class PlayerBehavior : MonoBehaviour {
         canDrag = true;
         anim = GetComponent<Animator>();
         anim.SetBool("Running", true);
+    
         #region ObstacleRelated
 
         breakRock = false;

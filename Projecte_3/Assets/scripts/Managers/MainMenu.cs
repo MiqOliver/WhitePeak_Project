@@ -101,8 +101,7 @@ public class MainMenu : MonoBehaviour {
       //  SceneSwitcher.changeToScene("a");
         //SceneManager.GetActvieScene().buildIndex + 1
     }
-
-
+    
     public void exit()
     {
         Application.Quit();

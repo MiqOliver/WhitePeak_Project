@@ -40,6 +40,7 @@ public static class PlayerMechanics {
     /// <param name="player">El player al que se li ha d'aplicar el salt</param>
     public static void Jump(PlayerBehavior player)
     {
+        player.anim.SetTrigger(player.jumpHash);
         player.changeMovement = true;
         player.GetComponent<Rigidbody>().AddForce(Vector3.up * player.tapForce, ForceMode.Impulse);
     }
