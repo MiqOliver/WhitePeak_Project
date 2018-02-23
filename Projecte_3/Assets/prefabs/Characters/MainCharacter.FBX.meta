@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bcbf8c89610e31742a05b6b76fa5068e
-timeCreated: 1519121015
+guid: 442de82620b07384999098c67cc2f91d
+timeCreated: 1519339716
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,8 +9,8 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Japanese Street Lamp
-    4300002: Japanese Street Lamp001
+    4300000: Box001
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -75,7 +75,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
