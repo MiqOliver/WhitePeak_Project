@@ -16,10 +16,13 @@ public abstract class Enemy : MonoBehaviour{
     [Space][Header("Run")]
     [SerializeField][Range(1.0f, 5.0f)]
     private float distance;
-    [SerializeField][Range(0.25f, 3.0f)]
+    [SerializeField]
+    [Range(0.05f, 1.0f)]
     private float distanceDecrease;
-    [SerializeField][Range(0.5f, 2.5f)]
+    [SerializeField][Range(0.05f, 0.5f)]
     private float runLerp;
+    [SerializeField][Range(0.5f, 2.5f)]
+    private float runCooldown;
     protected bool run = true;
 
     //Constructor
@@ -37,9 +40,10 @@ public abstract class Enemy : MonoBehaviour{
 
     public void Run()
     {
-        Vector3 desiredPosition = target.transform.position + target.transform.forward * distance;
+        float aux = Mathf.Lerp(Vector3.Distance(transform.position, target.transform.position), distance, runLerp);
+        Vector3 desiredPosition = target.transform.position + target.transform.forward * aux;
         desiredPosition.y = transform.position.y;
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, runLerp);
+        transform.position = desiredPosition;
     }
 
     //Corroutines
@@ -53,7 +57,7 @@ public abstract class Enemy : MonoBehaviour{
     protected IEnumerator RunCooldown()
     {
         run = false;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(runCooldown);
         run = true;
     }
 

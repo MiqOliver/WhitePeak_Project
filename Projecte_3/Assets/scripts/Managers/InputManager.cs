@@ -68,4 +68,18 @@ public static class InputManager {
         
         return Vector3.zero;
     }
+
+
+    //---------------------DEVELOPMENT KEYS--------------------
+    public static void DevelopKeys(SceneFader fader)
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+            fader.FadeTo("Menu");
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+            fader.FadeTo("Level_1");
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+            fader.FadeTo("Level_1.2");
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+            fader.FadeTo("BridgeCinematic");
+    }
 }

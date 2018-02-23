@@ -13,7 +13,7 @@ public class Enemy_Lance : Enemy
     //Funcions heredades
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+
     }
 
     protected override void Start()
@@ -64,7 +64,7 @@ public class Enemy_Lance : Enemy
         if (collision.transform.tag == "Ground")
         {
             GetComponent<Rigidbody>().useGravity = true;
-
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 
@@ -75,16 +75,16 @@ public class Enemy_Lance : Enemy
             if (canAttack)
             {
                 Attack();
-                canAttack = false;
                 StartCoroutine(AttackCooldown());
+                StartCoroutine(RunCooldown());
             }
-            else
+            else if (run)
                 Run();
         }
     }
 
     protected override void Awake()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

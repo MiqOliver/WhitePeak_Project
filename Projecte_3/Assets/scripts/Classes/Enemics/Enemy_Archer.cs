@@ -61,7 +61,7 @@ public class Enemy_Archer : Enemy
         if (collision.transform.tag == "Ground")
         {
             GetComponent<Rigidbody>().useGravity = true;
-
+            GetComponent<Rigidbody>().isKinematic = false;
         }
     }
 

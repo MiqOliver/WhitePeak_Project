@@ -13,7 +13,10 @@ public class SceneFader : MonoBehaviour {
     {
         StartCoroutine(FadeIn());
     }
-
+    private void Update()
+    {
+        InputManager.DevelopKeys(this);
+    }
     public void FadeTo(string scene)
     {
         StartCoroutine(FadeOut(scene));

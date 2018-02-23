@@ -63,15 +63,15 @@ public class PlayerBehavior : MonoBehaviour {
         {
             this.character = (playerClass)PlayerPrefs.GetInt("CharacterSelected");
             this.gameObject.name = "Player";
-            if (control == null)
-            {
-                DontDestroyOnLoad(gameObject);
-                control = this;
-            }
-            else if (control != this)
-            {
-                Destroy(gameObject);
-            }
+            //if (control == null)
+            //{
+            //    DontDestroyOnLoad(gameObject);
+            //    control = this;
+            //}
+            //else if (control != this)
+            //{
+            //    Destroy(gameObject);
+            //}
 
         }
         
@@ -83,7 +83,7 @@ public class PlayerBehavior : MonoBehaviour {
         canDrag = true;
         anim = GetComponent<Animator>();
         anim.SetBool("Running", true);
-    
+
         #region ObstacleRelated
 
         breakRock = false;
@@ -127,6 +127,7 @@ public class PlayerBehavior : MonoBehaviour {
             onDrag(this);
             StartCoroutine(DragCooldown(dragCooldown));
         }
+
     }
     
     public void Save()
