@@ -166,6 +166,7 @@ public class PathManager : MonoBehaviour {
         yield return new WaitUntil(() => corroutineAuxiliar(player));
         player.canTap = true;
         player.canDrag = true;
+        player.GetComponent<ParticleSystem>().Play();
 
         player.breakRock = false;
         player.breakLiana = false;

@@ -174,6 +174,7 @@ public class PlayerBehavior : MonoBehaviour {
     {
         yield return new WaitForSeconds(s);
         canDrag = true;
+        PlayerFeedback.Drag(this);
 
         breakRock = false;
         breakLiana = false;

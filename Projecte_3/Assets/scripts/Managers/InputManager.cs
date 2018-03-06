@@ -16,9 +16,9 @@ public static class InputManager {
     public static bool Toched()
     {
     //EDITOR
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
         return Input.GetKeyDown(KeyCode.Space);
-//#endif
+#endif
     
     //ANDROID
 #if UNITY_ANDROID
@@ -40,10 +40,10 @@ public static class InputManager {
     {
         if (Input.GetMouseButtonDown(0))
         {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
             initPos = Input.mousePosition;
             moved = true;
-//#endif
+#endif
 
 #if UNITY_ANDROID
             if (Input.mousePosition.x > Screen.width / 3)
