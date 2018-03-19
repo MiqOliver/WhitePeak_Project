@@ -24,6 +24,11 @@ public class PathManager : MonoBehaviour {
     public Vector3[] path;
     private int index;
 
+    private int percentage;
+    private float total_length;
+    private float run_length;
+    private GameObject player;
+
 #endregion
 
     private void Awake()
@@ -32,6 +37,18 @@ public class PathManager : MonoBehaviour {
         constrain = false;
         index = 0;
         constrainIndex = 0;
+
+        percentage = 0;
+        total_length = 0;
+        run_length = 0;
+
+        for(int i = 1; i < path.Length; i++)
+            total_length += Vector3.Distance(path[i], path[i - 1]);
+    }
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
     }
 
     //Function to draw the path in the scene when the GameObject is selected
@@ -51,7 +68,20 @@ public class PathManager : MonoBehaviour {
             Gizmos.DrawLine(path[i - 1], path[i]);
     }
 
-#region Functions
+    private void Update()
+    {
+        run_length = 0;
+        for(int i = index - 1; i > 0; i--)
+        {
+            run_length += Vector3.Distance(path[i], path[i - 1]);
+        }
+        if(index > 0)
+            run_length += Vector3.Distance(player.transform.position, path[index - 1]);
+
+        percentage = Mathf.FloorToInt((run_length / total_length) * 100);
+    }
+
+    #region Functions
 
     /// <summary>
     /// Actualitza l'index actual del path
@@ -143,6 +173,17 @@ public class PathManager : MonoBehaviour {
             SceneSwitcher.changeToScene("Menu");
 
         return speed_factor;
+    }
+
+    /// <summary>
+    /// Writes the percentage of the level the player comnpleted
+    /// </summary>
+    /// <returns>int percentage</returns>
+    public int WritePercentage()
+    {
+        Debug.Log(percentage);
+        PlayerPrefs.SetInt("Percentage", percentage);
+        return percentage;
     }
 
     private bool corroutineAuxiliar(PlayerBehavior player)

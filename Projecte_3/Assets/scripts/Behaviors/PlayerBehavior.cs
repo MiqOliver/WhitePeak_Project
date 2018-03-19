@@ -145,8 +145,9 @@ public class PlayerBehavior : MonoBehaviour {
 
     public void Die()
     {
+        GameObject.Find("Path").GetComponent<PathManager>().WritePercentage();
         Destroy(this.gameObject);
-        SceneSwitcher.changeToScene("menu");
+        SceneSwitcher.changeToScene("EndRun");
     }
 
     #region Corroutines

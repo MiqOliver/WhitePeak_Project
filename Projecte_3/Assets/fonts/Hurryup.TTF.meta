@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 68eaba2f56a9964468235db78c13ec9a
+timeCreated: 1521478096
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hurryup
+  fontNames:
+  - Hurryup
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

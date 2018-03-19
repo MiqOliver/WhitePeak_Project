@@ -81,6 +81,6 @@ public class Enemy_Sword : Enemy
 
     protected override void Awake()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 }
