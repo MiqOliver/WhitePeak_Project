@@ -25,9 +25,9 @@ public class PlayerBehavior : MonoBehaviour {
     public GameObject bulletPrefab;
     [Space]
     public playerClass character;
-    
+
     [HideInInspector]
-    public bool canTap = false;
+    public bool canTap = true;
     [HideInInspector]
     public bool canDrag = true;
     [HideInInspector]
@@ -43,6 +43,8 @@ public class PlayerBehavior : MonoBehaviour {
 
     [Header("HUD")]
     public CoinManager HUD;
+    public ParticleSystem tap_feedback;
+    public ParticleSystem drag_feedback;
     #endregion
 
     //these are for the mechanics of each character
@@ -81,6 +83,7 @@ public class PlayerBehavior : MonoBehaviour {
     // Use this for initializtion
     void Start () {
 
+        canTap = true;
         canDrag = true;
         anim = GetComponent<Animator>();
         anim.SetBool("Running", true);
@@ -121,6 +124,7 @@ public class PlayerBehavior : MonoBehaviour {
         {
             canTap = false;
             onTap(this);
+            StartCoroutine(TapCooldown(tapCooldown));
         }
         if (InputManager.Drag().x > 0 && canDrag)
         {
@@ -161,6 +165,7 @@ public class PlayerBehavior : MonoBehaviour {
     /// <returns></returns>
     public IEnumerator TapCooldown(float s) {
         yield return new WaitForSeconds(s);
+        tap_feedback.Play();
         canTap = true;
 
         breakRock = false;
@@ -176,6 +181,7 @@ public class PlayerBehavior : MonoBehaviour {
     public IEnumerator DragCooldown(float s)
     {
         yield return new WaitForSeconds(s);
+        drag_feedback.Play();
         canDrag = true;
         PlayerFeedback.Drag(this);
 
@@ -192,7 +198,7 @@ public class PlayerBehavior : MonoBehaviour {
     void OnCollisionEnter(Collision other)
 	{	
 		if (other.collider.tag == "Ground") {
-            StartCoroutine(TapCooldown(tapCooldown));
+            //StartCoroutine(TapCooldown(tapCooldown));
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<Rigidbody>().freezeRotation = false;
             changeMovement = false;
