@@ -33,17 +33,17 @@ public class Enemy_Sword : Enemy
 
     protected override void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.tag == "Player")
-        {
-            if (!hasShield && target.onTap == PlayerMechanics.Hit && !target.canTap)
-            {
-                Die();
-            }
-            else
-                collision.gameObject.GetComponent<PlayerBehavior>().Die();
+    //    if (collision.transform.tag == "Player")
+    //    {
+    //        if (!hasShield && target.onTap == PlayerMechanics.Hit && !target.canTap)
+    //        {
+    //            Die();
+    //        }
+    //        else
+    //            collision.gameObject.GetComponent<PlayerBehavior>().Die();
 
-        }
-        else if (collision.transform.tag == "Projectil")
+    //    }
+        if (collision.transform.tag == "Projectil")
         {
             if (hasShield)
             {

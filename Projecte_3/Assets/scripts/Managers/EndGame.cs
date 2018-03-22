@@ -7,12 +7,14 @@ public class EndGame : MonoBehaviour {
 
     public Text percentage;
     public Text text;
+    public Text coins;
     public SceneFader fader;
 
 	// Use this for initialization
 	void Start () {
         int per = PlayerPrefs.GetInt("Percentage");
         percentage.text = per.ToString() + "%";
+        coins.text = "$" + PlayerPrefs.GetInt("ObtainedCoins").ToString();
 
         if (per < 10)
             text.text = "NICE TRY... FOR A BEGINNER";

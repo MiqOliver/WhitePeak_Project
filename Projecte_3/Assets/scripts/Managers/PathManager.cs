@@ -94,6 +94,12 @@ public class PathManager : MonoBehaviour {
             if(Vector3.Distance(player.transform.position, path[index]) <= arrivalDistance)
                 index++;
         }
+        else
+        {
+            PlayerPrefs.SetInt("Percentage", 100);
+            player.HUD.WriteCoins();
+            SceneSwitcher.changeToScene("EndRun");
+        }
     }
 
     /// <summary>
@@ -181,7 +187,6 @@ public class PathManager : MonoBehaviour {
     /// <returns>int percentage</returns>
     public int WritePercentage()
     {
-        Debug.Log(percentage);
         PlayerPrefs.SetInt("Percentage", percentage);
         return percentage;
     }
@@ -207,7 +212,7 @@ public class PathManager : MonoBehaviour {
         yield return new WaitUntil(() => corroutineAuxiliar(player));
         player.canTap = true;
         player.canDrag = true;
-        player.GetComponent<ParticleSystem>().Play();
+        //player.GetComponent<ParticleSystem>().Play();
 
         player.breakRock = false;
         player.breakLiana = false;

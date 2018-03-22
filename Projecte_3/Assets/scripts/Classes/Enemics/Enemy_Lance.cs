@@ -33,26 +33,26 @@ public class Enemy_Lance : Enemy
 
     protected override void OnTriggerEnter(Collider collision)
     {
-        if(collision.transform.tag == "Player")//si la colisio es amb el player
-        {
-            if ((target.onTap == PlayerMechanics.Hit && !target.canTap) || (target.onDrag == PlayerMechanics.Dash && !target.canDrag))
-                //si el player actual es lhome, i no pot fer el Roll
-                //amb el tap, vol dir que lesta utilitzant en aquell moment, per tant
-                //morira
-            {
-                Debug.Log("ENEMIC MOR");
-                Die();           
-            }
-            else//sino morira el player
-            {
-                collision.gameObject.GetComponent<PlayerBehavior>().Die();
-                Debug.Log("NO HA FET ROLL, MOR EL PLAYER");
-            }
-        }
+        //if(collision.transform.tag == "Player")//si la colisio es amb el player
+        //{
+        //    if ((target.onTap == PlayerMechanics.Hit && !target.canTap) || (target.onDrag == PlayerMechanics.Dash && !target.canDrag))
+        //        //si el player actual es lhome, i no pot fer el Roll
+        //        //amb el tap, vol dir que lesta utilitzant en aquell moment, per tant
+        //        //morira
+        //    {
+        //        Debug.Log("ENEMIC MOR");
+        //        Die();           
+        //    }
+        //    else//sino morira el player
+        //    {
+        //        collision.gameObject.GetComponent<PlayerBehavior>().Die();
+        //        Debug.Log("NO HA FET ROLL, MOR EL PLAYER");
+        //    }
+        //}
 
         // if(collision.transform.tag == "Proyectil")//encara re disenyat per aixo
 
-        else if (collision.transform.tag == "Ground")
+        if (collision.transform.tag == "Ground")
         {
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<Rigidbody>().isKinematic = true;
