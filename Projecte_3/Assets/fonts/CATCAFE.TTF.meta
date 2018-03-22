@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: e66dc14a0c5f68f4e9902d6bbe211d14
+timeCreated: 1521628997
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: CatCafe
+  fontNames:
+  - CatCafe
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

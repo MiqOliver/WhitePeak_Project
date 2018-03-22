@@ -45,11 +45,11 @@ public class Enemy_Archer : Enemy
 
     protected override void OnTriggerEnter(Collider collision)
     {
-        if (collision.transform.tag == "Player" && collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
-            Die();
-        else if (collision.transform.tag == "Player")
-            collision.gameObject.GetComponent<PlayerBehavior>().Die();
-        else if (collision.transform.tag == "Ground")
+        //if (collision.transform.tag == "Player" && collision.gameObject.GetComponent<PlayerBehavior>().killEnemy)
+        //    Die();
+        //else if (collision.transform.tag == "Player")
+        //    collision.gameObject.GetComponent<PlayerBehavior>().Die();
+        if (collision.transform.tag == "Ground")
         {
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<Rigidbody>().isKinematic = true;
